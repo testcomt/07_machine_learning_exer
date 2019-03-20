@@ -3,17 +3,9 @@
 
 import math
 
-# [living area, price]
-training_set = [[2104, 400],
-                [1416, 232],
-                [1534, 315],
-                [852, 178],
-                [1940, 240]]
-
+training_set = []
 NUMBER_OF_FEATURES = 1
-
-init_weights = (0, 0)
-
+init_weights = ()
 LEARNING_RATE = -0.000000001
 
 
@@ -76,6 +68,7 @@ def convergence_check():
     prev_cost = cost_func(prev_weights)
 
     next_cost, next_weights = next_cost_calc(prev_weights)
+    print(next_cost)
 
     cycle = 0
     while next_cost < prev_cost:
@@ -90,15 +83,67 @@ def convergence_check():
         print("weights are", prev_weights)
 
 
-if __name__ == '__main__':
+def test_one_feature():
+
+    # [living area, price]
+
+    global training_set
+    training_set = [[2104, 400],
+                    [1416, 232],
+                    [1534, 315],
+                    [852, 178],
+                    [1940, 240]]
+
+    global NUMBER_OF_FEATURES
+    NUMBER_OF_FEATURES = 1
+
+    global init_weights
+    init_weights = (0, 0)
+
+    global LEARNING_RATE
+    LEARNING_RATE = -0.000000001
+
     convergence_check()
 
 
+def test_two_features():
+    """one feature is living area
+    the other feature is square of living area
+    """
+
+    # [living area, square of living area, price]
+
+    global training_set
+    training_set = [[2104, 2104*2104, 400],
+                    [1416, 1416*1416, 232],
+                    [1534, 1534*1534, 315],
+                    [852, 852*852, 178],
+                    [1940, 1940*1940, 240]]
+
+    global NUMBER_OF_FEATURES
+    NUMBER_OF_FEATURES = 2
+
+    global init_weights
+    init_weights = (0, 0, 0)
+
+    # Cost is  17821.23666669045, when learning_rate is -0.1e-13 (least value)
+    # weights are [7.899092315128317e-11, 8.495361206780859e-08, 9.131590067807478e-05]
+    global LEARNING_RATE
+    LEARNING_RATE = -0.1e-13
+
+    convergence_check()
+
+
+if __name__ == '__main__':
+    # test_one_feature()
+    test_two_features()
+
+
 # 1. LEARNING_RATE IS SET TWO DIFF VALUES, SEE CONVERGENCE SPEED
-# 2. TODO: LEARNING_RATE is now human-set value. Can it be auto-ajusted by program?
+# 2. TODO: LEARNING_RATE is now human-set value. Can it be auto-adjusted by program?
 # 3. TODO: draw a graph to show the changing state
 # 4. TODO: import data from outside (large files, website, etc)
-#
+# 5. TODO: factors influencing cost function? why least cost is 6974 rather than 0?
 # init_weights = (0, 0)
 #
 # LEARNING_RATE = -0.00000000001
