@@ -114,11 +114,12 @@ def test_two_features():
     # [living area, square of living area, price]
 
     global training_set
-    training_set = [[2104, 2104*2104, 400],
-                    [1416, 1416*1416, 232],
-                    [1534, 1534*1534, 315],
-                    [852, 852*852, 178],
-                    [1940, 1940*1940, 240]]
+    training_set = [[2104, 400],
+                    [1416, 232],
+                    [1534, 315],
+                    [852, 178],
+                    [1940, 240]]
+    [i.insert(1, pow(i[0], 2)) for i in training_set]
 
     global NUMBER_OF_FEATURES
     NUMBER_OF_FEATURES = 2
